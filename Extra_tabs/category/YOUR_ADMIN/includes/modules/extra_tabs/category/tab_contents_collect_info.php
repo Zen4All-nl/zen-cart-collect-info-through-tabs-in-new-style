@@ -1,5 +1,5 @@
 <?php
-include (DIR_WS_LANGUAGES . $_SESSION['language'] . '/products_to_categories.php');
+include DIR_WS_LANGUAGES . $_SESSION['language'] . '/products_to_categories.php';
 $categories_query = "SELECT DISTINCT ptoc.categories_id, cd.*
                      FROM " . TABLE_PRODUCTS_TO_CATEGORIES . " ptoc
                      LEFT JOIN " . TABLE_CATEGORIES_DESCRIPTION . " cd ON cd.categories_id = ptoc.categories_id

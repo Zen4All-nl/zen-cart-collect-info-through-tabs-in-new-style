@@ -1,5 +1,5 @@
 <?php
-include (DIR_WS_LANGUAGES . $_SESSION['language'] . '/products_price_manager.php');
+include DIR_WS_LANGUAGES . $_SESSION['language'] . '/products_price_manager.php';
 if (isset($_GET['pID']) && empty($_POST)) {
   $product_mdq = $db->Execute("SELECT products_mixed_discount_quantity
                                FROM " . TABLE_PRODUCTS . "
