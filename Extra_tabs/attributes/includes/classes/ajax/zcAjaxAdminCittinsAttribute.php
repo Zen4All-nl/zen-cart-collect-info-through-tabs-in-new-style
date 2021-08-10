@@ -376,7 +376,7 @@ class zcAjaxAdminAttribute extends base {
     global $db, $messageStack;
     $data = new objectInfo($_POST);
 
-    require(DIR_WS_CLASSES . 'currencies.php');
+    require DIR_WS_CLASSES . 'currencies.php';
     $currencies = new currencies();
     $check_duplicate = $db->Execute("SELECT * FROM " . TABLE_PRODUCTS_ATTRIBUTES . "
                                      WHERE products_id = " . (int)$data->product_id . "
@@ -663,13 +663,6 @@ class zcAjaxAdminAttribute extends base {
       $flagValue = 1;
     }
     return(['flagValue' => $flagValue]);
-  }
-
-  public function messageStack() {
-    global $messageStack;
-    if ($messageStack->size > 0) {
-      return(['modalMessageStack' => $messageStack->output()]);
-    }
   }
 
 }

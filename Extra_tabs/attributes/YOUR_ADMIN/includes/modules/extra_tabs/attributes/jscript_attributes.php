@@ -12,7 +12,7 @@
 
   function updateAttributeValueDropDown(optionId) {
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminAttribute&method=updateValueDropDown',
+      url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=updateValueDropDown',
       data: {
         'options_id': optionId
       }
@@ -26,7 +26,7 @@
     $("#productCopyToProduct").off('submit').on('submit', (function (e) {
       e.preventDefault();
       zcJs.ajax({
-        url: 'ajax.php?act=ajaxAdminAttribute&method=productCopyToProduct',
+        url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=productCopyToProduct',
         data: new FormData(this)
       }).done(function (resultArray) {
         console.log(resultArray);
@@ -38,7 +38,7 @@
 
   function addAttribute() {
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminAttribute&method=addAttribute',
+      url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=addAttribute',
       data: {
         'products_id': productId
       }
@@ -53,7 +53,7 @@
       e.preventDefault();
       const formData = $('#attributeAddForm').serializeArray();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminAttribute&method=insertAttribute',
+        url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=insertAttribute',
         data: formData
       }).done(function (resultArray) {
         //console.log(resultArray);
@@ -81,7 +81,7 @@
 
   function editAttribute(attributeId) {
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminAttribute&method=editAttribute',
+      url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=editAttribute',
       data: {
         'attribute_id': attributeId,
         'products_id': productId
@@ -179,7 +179,7 @@
     $("#attributeEditForm").off('submit').on('submit', (function (e) {
       e.preventDefault();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminAttribute&method=saveAttribute',
+        url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=saveAttribute',
         data: new FormData(this)
       }).done(function (resultArray) {
         //console.log(resultArray);
@@ -205,7 +205,7 @@
 
   function deleteOptionConfirm(optionId) {
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminAttribute&method=deleteOptionConfirm',
+      url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=deleteOptionConfirm',
       data: {
         'options_id': optionId
       }
@@ -220,7 +220,7 @@
     $("#deleteOptionConfirm").off('submit').on('submit', (function (e) {
       e.preventDefault();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminAttribute&method=deleteOption',
+        url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=deleteOption',
         data: new FormData(this)
       }).done(function (result) {
         const resultArray = JSON.parse(result);
@@ -235,7 +235,7 @@
 
   function deleteOptionValueConfirm(attributeId) {
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminAttribute&method=deleteOptionValueConfirm',
+      url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=deleteOptionValueConfirm',
       data: {
         'attributes_id': attributeId
       }
@@ -250,7 +250,7 @@
     $("#deleteOptionValueConfirm").off('submit').on('submit', (function (e) {
       e.preventDefault();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminAttribute&method=deleteOptionValue',
+        url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=deleteOptionValue',
         data: new FormData(this)
       }).done(function (resultArray) {
         //console.log(resultArray);
@@ -263,7 +263,7 @@
 
   function switchFlag(flag, attributeId, flagName) {
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminAttribute&method=switchFlag',
+      url: 'ajax.php?act=ajaxAdminCittinsAttribute&method=switchFlag',
       data: {
         'attributes_id': attributeId,
         'flag': flag,
@@ -272,22 +272,21 @@
       }
     }).done(function (resultArray) {
       //console.log(resultArray);
-      $('#flag-' + attributeId + '-' + flagName).attr('onclick', 'switchFlag(\'' + resultArray.flagValue + '\', \'' + attributeId + '\', \'' + flagName + '\')');
+      $('#flag-' + attributeId + '-' + flagName).attr('onclick', 'switchFlag(' + resultArray.flagValue + ', ' + attributeId + ', \'' + flagName + '\')');
       if (resultArray.flagValue == 1) {
-        $('#flag-' + attributeId + '-' + flagName).addClass('flagNotActive');
-        $('#flag-' + attributeId + '-' + flagName + ' i').removeClass('fa-check').addClass('fa-times');
+        $('#flag-' + attributeId + '-' + flagName).addClass('flagNotActive').addClass('opacity-25');
+        $('#fa-stack-' + attributeId + '-' + flagName).removeClass('fa-check').addClass('fa-times').addClass('red-txt');
       } else {
-        $('#flag-' + attributeId + '-' + flagName).removeClass('flagNotActive');
-        $('#flag-' + attributeId + '-' + flagName + ' i').removeClass('fa-times').addClass('fa-check');
+        $('#flag-' + attributeId + '-' + flagName).removeClass('flagNotActive').removeClass('opacity-25');
+        $('#fa-stack-' + attributeId + '-' + flagName).removeClass('fa-times').addClass('fa-check').removeClass('red-txt');
       }
     });
   }
 
   function getMessageStack() {
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminAttribute&method=messageStack'
+      url: 'ajax.php?act=ajaxAdminMessageStack&method=messageStack'
     }).done(function (resultArray) {
-      //console.log(resultArray);
       $('#MessageStackText').html(resultArray.modalMessageStack);
       $('#MessageStack').modal('show');
       setTimeout(function () {
