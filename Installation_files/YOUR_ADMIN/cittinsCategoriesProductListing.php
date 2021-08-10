@@ -175,7 +175,7 @@ if ($check_products > 0) {
             <?php echo zen_draw_form('set_editor_form', FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING, '', 'get', 'class="form-horizontal"'); ?>
             <div class="form-group">
               <?php echo zen_draw_label(TEXT_EDITOR_INFO, 'reset_editor', 'class="col-sm-6 col-md-4 control-label"'); ?>
-              <div class="col-sm-6 col-md-8"><?php echo zen_draw_pull_down_menu('reset_editor', $editors_pulldown, $current_editor_key, 'onchange="this.form.submit();" class="form-control"'); ?></div>
+              <div class="col-sm-6 col-md-8"><?php echo zen_draw_pull_down_menu('reset_editor', $editors_pulldown, $current_editor_key, 'onchange="this.form.submit();"id="reset_editor" class="form-control"'); ?></div>
             </div>
             <?php
             echo zen_hide_session_id();
@@ -241,7 +241,7 @@ if ($check_products > 0) {
             <?php echo zen_draw_form('searchForm', FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING, '', 'get', 'class="form-horizontal"'); ?>
             <div class="form-group">
               <?php echo zen_draw_label(HEADING_TITLE_SEARCH_DETAIL, 'search', 'class="col-sm-6 col-md-4 control-label"'); ?>
-              <div class="col-sm-6 col-md-8"><?php echo zen_draw_input_field('search', '', ($action == '' ? 'autofocus="autofocus"' : '') . 'class="form-control"'); ?></div>
+              <div class="col-sm-6 col-md-8"><?php echo zen_draw_input_field('search', '', ($action == '' ? 'autofocus="autofocus"' : '') . 'id="search" class="form-control"'); ?></div>
             </div>
             <?php
             echo zen_hide_session_id();
@@ -263,7 +263,7 @@ if ($check_products > 0) {
               <?php echo zen_draw_label(HEADING_TITLE_GOTO, 'cPath', 'class="control-label col-sm-6 col-md-4"'); ?>
               <div class="col-sm-6 col-md-8">
                 <?php echo zen_hide_session_id(); ?>
-                <?php echo zen_draw_pull_down_menu('cPath', zen_get_category_tree(), $current_category_id, 'onchange="this.form.submit();" class="form-control"'); ?>
+                <?php echo zen_draw_pull_down_menu('cPath', zen_get_category_tree(), $current_category_id, 'onchange="this.form.submit();" id="cPath" class="form-control"'); ?>
               </div>
             </div>
             <?php echo '</form>'; ?>
@@ -302,7 +302,7 @@ if ($check_products > 0) {
               </thead>
               <tbody>
                 <tr>
-                  <td colspan="2"><a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING); ?>" class="btn btn-default btn-xs" role="button"><i class="fa fa-reply-all fa-flip-vertical" aria-hidden="true" title="Up to top level"></i></a> <a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING, $cPath_back . 'cID=' . $current_category_id); ?>" class="btn btn-default btn-xs" role="button"><i class="fa fa-reply fa-flip-vertical" aria-hidden="true" title="Up one level"></i></a></td>
+                  <td colspan="2"><a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING); ?>" class="btn btn-default btn-xs" role="button"<?php echo ($_GET['cID'] == '0' ? ' disabled' : ''); ?>><i class="fa fa-reply-all fa-flip-vertical" aria-hidden="true" title="Up to top level"></i></a> <a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING, $cPath_back . 'cID=' . $current_category_id); ?>" class="btn btn-default btn-xs" role="button"<?php echo ($_GET['cID'] == '0' ? ' disabled' : ''); ?>><i class="fa fa-reply fa-flip-vertical" aria-hidden="true" title="Up one level"></i></a></td>
                   <td class="ColumnName">&nbsp;</td>
                   <td class="ColumnImage">&nbsp;</td>
                   <td class="ColumnModel text-center hidden-sm hidden-xs">&nbsp;</td>
@@ -588,7 +588,7 @@ if ($check_products > 0) {
             <div class="col-sm-6">
               <?php echo zen_draw_label(WITH_SELECTED, 'action_select', 'class="col-sm-3 control-label"'); ?>
               <div class="col-sm-9">
-                <div class="input-group"><?php echo zen_draw_pull_down_menu('action_select', $selectActions, '', 'class="form-control"'); ?>
+                <div class="input-group"><?php echo zen_draw_pull_down_menu('action_select', $selectActions, '', 'id="action_select" class="form-control"'); ?>
                   <div class="input-group-btn"><button type="submit" class="btn btn-primary" onclick="multiSelect();"><?php echo IMAGE_GO; ?></button></div>
                 </div>
               </div>
