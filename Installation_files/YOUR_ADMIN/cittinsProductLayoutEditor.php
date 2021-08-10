@@ -1,8 +1,7 @@
 <?php
 /*
- * @copyright (c) 2008-2020, Zen4All
+ * @copyright (c) 2008-2021, Zen4All
  * @copyright Copyright 2003-2020 Zen Cart Development Team
- * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: Author: Zen4All
  */
@@ -220,55 +219,11 @@ $fieldTypesArray = [
 ?>
 <!doctype html>
 <html <?php echo HTML_PARAMS; ?>>
-  <head>`
+  <head>
     <?php require DIR_WS_INCLUDES . 'admin_html_head.php'; ?>
   </head>
   <body>
-    <!-- header //-->
     <?php require DIR_WS_INCLUDES . 'header.php'; ?>
-    <!-- header_eof //-->
-    <!-- body //-->
-    <?php if ($action == '') { ?>
-      <script>
-        $(function () {
-          $('#available_fields, [id^=tab-]').sortable({
-            connectWith: '.connectedSortable',
-            placeholder: 'ui-state-highlight'
-          }).disableSelection();
-          $('#tabs').sortable({
-            placeholder: 'ui-state-highlight',
-            items: 'div:not(.ui-state-disabled)'
-          }).disableSelection();
-          $('#tabs div').disableSelection();
-          $('[id^=tab-]').sortable({
-            receive: function (event, ui) {
-              const dropElemTxt = $(ui.item).find('span').text();
-              const dropElemId = $(ui.item).attr('id');
-              const dropTabId = $(ui.item).parent().attr('name');
-              let replacement = '';
-              replacement += '<div id="' + dropElemId + '" class="ui-state-default" role="button">\n';
-              replacement += '<input type="checkbox" name="tab[' + dropTabId + '][layout][' + dropElemId + '][show_in_frontend]" value="1" checked="checked">&nbsp;|&nbsp;\n';
-              replacement += '<span>' + dropElemTxt + '</span>\n';
-              replacement += '<input type="hidden" name="tab[' + dropTabId + '][layout][' + dropElemId + '][field_name]" value="' + dropElemId + '">\n';
-              replacement += '<input type="hidden" name="tab[' + dropTabId + '][layout][' + dropElemId + '][tab_id]" value="' + dropTabId + '">\n';
-              replacement += '</div>\n';
-              $(ui.item).replaceWith(replacement);
-            }
-          });
-          $('#available_fields').sortable({
-            receive: function (event, ui) {
-              const dropElemTxt = $(ui.item).find('span').text();
-              const dropElemId = $(ui.item).attr('id');
-              let replacement = '';
-              replacement += '<div id="' + dropElemId + '" class="ui-state-default" role="button">\n';
-              replacement += '<span>' + dropElemTxt + '</span>\n';
-              replacement += '</div>\n';
-              $(ui.item).replaceWith(replacement);
-            }
-          });
-        });
-      </script>
-    <?php } ?>
     <div class="container-fluid">
       <div class="panel panel-default">
         <div class="panel-heading">
@@ -277,82 +232,23 @@ $fieldTypesArray = [
         <div class="panel-body">
           <div id="actionPanel" class="panel col-sm-2">
             <h4><?php echo NAV_TITLE_ACTIONS; ?></h4>
-            <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'action=add_field' . (isset($selectedProductTypeId) && $selectedProductTypeId != '' ? '&set_product_type=' . $selectedProductTypeId : '')) ?>" class="btn btn-primary btn-block" role="button"><?php echo BUTTON_ADD_FIELD; ?></a>
-            <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'action=delete_field' . (isset($selectedProductTypeId) && $selectedProductTypeId != '' ? '&set_product_type=' . $selectedProductTypeId : '')) ?>" class="btn btn-primary btn-block" role="button"><?php echo BUTTON_DELETE_FIELD; ?></a>
-            <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'action=tabs' . (isset($selectedProductTypeId) && $selectedProductTypeId != '' ? '&set_product_type=' . $selectedProductTypeId : '')) ?>" class="btn btn-primary btn-block" role="button"><?php echo BUTTON_TABS; ?></a>
-            <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'action=productTypes' . '&set_product_type=' . $selectedProductTypeId) ?>" class="btn btn-primary btn-block" role="button"><?php echo BUTTON_PRODUCT_TYPES; ?></a>
+            <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, (isset($selectedProductTypeId) && $selectedProductTypeId != '' ? '&set_product_type=' . $selectedProductTypeId : '')); ?>" class="btn btn-primary btn-block" role="button" title="<?php echo BUTTON_FIELD_TO_TABS; ?>"><?php echo BUTTON_FIELD_TO_TABS; ?></a>
+            <!--
+            <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'action=add_field' . (isset($selectedProductTypeId) && $selectedProductTypeId != '' ? '&set_product_type=' . $selectedProductTypeId : '')) ?>" class="btn btn-primary btn-block" role="button" title="<?php echo BUTTON_ADD_FIELD . ' `' . BUTTON_OPTION_UNAVAILABLE . '`'; ?>" disabled><?php echo BUTTON_ADD_FIELD; ?></a>
+            <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'action=delete_field' . (isset($selectedProductTypeId) && $selectedProductTypeId != '' ? '&set_product_type=' . $selectedProductTypeId : '')) ?>" class="btn btn-primary btn-block" role="button" title="<?php echo BUTTON_DELETE_FIELD . ' `' . BUTTON_OPTION_UNAVAILABLE . '`'; ?>" disabled><?php echo BUTTON_DELETE_FIELD; ?></a>
+            -->
+            <button class="btn btn-primary btn-block" type="button" title="<?php echo BUTTON_ADD_FIELD . ' `' . BUTTON_OPTION_UNAVAILABLE . '`'; ?>" disabled><?php echo BUTTON_ADD_FIELD; ?></button>
+            <button class="btn btn-primary btn-block" type="button" title="<?php echo BUTTON_DELETE_FIELD . ' `' . BUTTON_OPTION_UNAVAILABLE . '`'; ?>" disabled><?php echo BUTTON_DELETE_FIELD; ?></button>
+            <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'action=tabs' . (isset($selectedProductTypeId) && $selectedProductTypeId != '' ? '&set_product_type=' . $selectedProductTypeId : '')) ?>" class="btn btn-primary btn-block" role="button" title="<?php echo BUTTON_TABS; ?>"><?php echo BUTTON_TABS; ?></a>
+            <!--
+            <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'action=productTypes' . '&set_product_type=' . $selectedProductTypeId) ?>" class="btn btn-primary btn-block" role="button" title="<?php echo BUTTON_PRODUCT_TYPES . ' `' . BUTTON_OPTION_UNAVAILABLE . '`'; ?>" disabled><?php echo BUTTON_PRODUCT_TYPES; ?></a>
+            -->
+            <button class="btn btn-primary btn-block" type="button" title="<?php echo BUTTON_PRODUCT_TYPES . ' `' . BUTTON_OPTION_UNAVAILABLE . '`'; ?>" disabled><?php echo BUTTON_PRODUCT_TYPES; ?></button>
           </div>
           <?php
           switch ($action) {
             case 'add_field':
               ?>
-              <script>
-                let row = 3;
-                $(function () {
-                  $('#select_values').hide();
-                  $('#field_type select').change(function () {
-                    if ($('#field_type option:selected').text() == 'string') {
-                      $('#language_string').show();
-                      $('#select_values').hide();
-                      $('#field_length').show();
-                      $('#select_values').find('input:text').val('');
-                    } else if ($('#field_type option:selected').text() == 'text') {
-                      $('#language_string').show();
-                      $('#select_values').hide();
-                      $('#field_length').show();
-                      $('#select_values').find('input:text').val('');
-                    } else if ($('#field_type option:selected').text() == 'integer') {
-                      $('#select_values').hide();
-                      $('#language_string').hide();
-                      $('#field_length').show();
-                      $('#select_values').find('input:text').val('');
-                    } else if ($('#field_type option:selected').text() == 'decimal') {
-                      $('#select_values').hide();
-                      $('#language_string').hide();
-                      $('#field_length').show();
-                      $('#select_values').find('input:text').val('');
-                    } else if ($('#field_type option:selected').text() == 'float') {
-                      $('#select_values').hide();
-                      $('#language_string').hide();
-                      $('#field_length').show();
-                      $('#select_values').find('input:text').val('');
-                    } else if ($('#field_type option:selected').text() == 'dropdown') {
-                      $('#select_values').show();
-                      $('#language_string').hide();
-                      $('#field_length').hide();
-                      $('#field_length').find('input:text').val('');
-                    } else if ($('#field_type option:selected').text() == 'radio') {
-                      $('#select_values').show();
-                      $('#language_string').hide();
-                      $('#field_length').hide();
-                      $('#field_length').find('input:text').val('');
-                    } else if ($('#field_type option:selected').text() == 'checkbox') {
-                      $('#select_values').show();
-                      $('#language_string').hide();
-                      $('#field_length').hide();
-                      $('#field_length').find('input:text').val('');
-                    } else if ($('#field_type option:selected').text() == 'datetime') {
-                      $('#select_values').hide();
-                      $('#language_string').hide();
-                      $('#field_length').hide();
-                      $('#select_values').find('input:text').val('');
-                      $('#field_length').find('input:text').val('');
-                    }
-                  });
-                  $('#add_value').click(function () {
-                    let html;
-                    html = '<div class="col-sm-4">';
-                    html += '<input type="text" name="select_value_id[' + row + ']" class="form-control" />';
-                    html += '</div>';
-                    html += '<div class="col-sm-8">';
-                    html += '<input type="text" name="select_value_text[' + row + ']" class="form-control" />';
-                    html += '</div>';
-                    html += '<div class="col-sm-12"><hr></div>';
-                    $('#selection_fields').append(html);
-                    row++;
-                  });
-                });
-              </script>
               <div class="col-sm-10">
                 <div class="row">
                   <?php echo zen_draw_form('add_field', FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'set_product_type=' . (isset($_GET['set_product_type']) && $_GET['set_product_type'] != '' ? (int)$_GET['set_product_type'] . '&' : '') . 'action=insert_field', 'post', 'class="form-horizontal"'); ?>
@@ -445,19 +341,17 @@ $fieldTypesArray = [
               <?php
               break;
             case 'delete_field' :
+              $availableFieldsArray = getAvailableFields($allFieldsArray, $fieldsToProductTypeArray);
+              $fieldsArray = [];
+              foreach ($availableFieldsArray as $availableField) {
+                $fieldsArray[] = [
+                  'id' => $availableField['id'],
+                  'text' => (!empty($availableField['description']) ? $availableField['description'] : $availableField['field_name'])
+                ];
+              }
               ?>
-              <div class="col-sm-10">
-                <div class="row">
-                  <?php
-                  $availableFieldsArray = getAvailableFields($allFieldsArray, $fieldsToProductTypeArray);
-                  $fieldsArray = [];
-                  foreach ($availableFieldsArray as $availableField) {
-                    $fieldsArray[] = [
-                      'id' => $availableField['id'],
-                      'text' => (!empty($availableField['description']) ? $availableField['description'] : $availableField['field_name'])
-                    ];
-                  }
-                  ?>
+              <div class = "col-sm-10">
+                <div class = "row">
                   <?php echo zen_draw_form('set_product_field_form', FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR, 'action=edit_field&set_product_type=' . $selectedProductTypeId, 'get', 'class="form-horizontal"'); ?>
                   <div class="form-group">
                     <?php echo zen_draw_label(TEXT_SELECT_FIELD, 'set_field', 'class="col-sm-3 control-label"'); ?>
@@ -805,10 +699,10 @@ $fieldTypesArray = [
                               </div>
                             </div>
                           <?php } ?>
-                          <div class="col-sm-12 text-right">
-                            <?php echo zen_draw_hidden_field('product_type', $selectedProductTypeId); ?>
+                          <div class="floatButton">
                             <?php echo zen_html_button(IMAGE_SAVE, 'primary', '', 'submit'); ?> <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT_LAYOUT_EDITOR); ?>" class="btn btn-default" role="button">Reset</a>
                           </div>
+                          <?php echo zen_draw_hidden_field('product_type', $selectedProductTypeId); ?>
                           <?php echo '</form>'; ?>
                         </td>
                       </tr>

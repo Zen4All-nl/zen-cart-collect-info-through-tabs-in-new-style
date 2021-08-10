@@ -1,10 +1,11 @@
 <?php
 
-/* 
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+define('BUTTON_OPTION_UNAVAILABLE', 'This function is unavailable in this version (2.0.0). We are working on this feature in a next point release (2.1.0)');
 
 define('HEADING_TITLE', 'Product Types');
 define('TEXT_SELECT_PRODUCT_TYPE', 'Select a product type');
@@ -14,6 +15,7 @@ define('NAV_TITLE_ACTIONS', 'Actions');
 define('NAV_TITLE_FIELDS', 'Fields');
 define('BUTTON_ADD_FIELD', 'Add Field');
 define('BUTTON_DELETE_FIELD', 'Delete Field');
+define('BUTTON_FIELD_TO_TABS', 'Fields to Tabs');
 define('BUTTON_EDIT_FIELD', 'Edit Field');
 define('BUTTON_TABS', 'Tabs');
 define('BUTTON_PRODUCT_TYPES', 'Product Types');
