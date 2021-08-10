@@ -8,6 +8,7 @@
 <script>
   function editTab(tabId) {
 
+      url: 'ajax.php?act=ajaxAdminCittinsProductLayoutEditor&method=editTabInfo',
   }
   function deleteTab(tabId) {
 
@@ -17,11 +18,12 @@
   }
   function saveTab() {
 
+        url: 'ajax.php?act=ajaxAdminCittinsProductLayoutEditor&method=saveTabInfo',
   }
   function tabInfo(tabId) {
       var content;
       zcJS.ajax({
-          url: 'ajax.php?act=ajaxAdminProductLayoutEditor&method=getTabInfo',
+      url: 'ajax.php?act=ajaxAdminCittinsProductLayoutEditor&method=getTabInfo',
           data: {
               'tabId': tabId
           }
@@ -44,7 +46,7 @@
           e.preventDefault();
           console.log(SortOrder);
           zcJS.ajax({
-              url: 'ajax.php?act=ajaxAdminProductLayoutEditor&method=updateTabSortOrder',
+        url: 'ajax.php?act=ajaxAdminCittinsProductLayoutEditor&method=updateTabSortOrder',
               data: new FormData(SortOrder)
           }).done(function (resultArray) {
               console.log(resultArray);

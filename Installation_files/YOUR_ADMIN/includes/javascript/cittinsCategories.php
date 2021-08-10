@@ -38,7 +38,7 @@
 
     const restrictType = $('#restrict_type').val();
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminCategories&method=add_type',
+      url: 'ajax.php?act=ajaxAdminCittinsCategories&method=add_type',
       data: {
         'restrictType': restrictType,
         'categoryId': categoryId,
@@ -57,7 +57,7 @@
   function removeType(restrictType) {
 
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminCategories&method=remove_type',
+      url: 'ajax.php?act=ajaxAdminCittinsCategories&method=remove_type',
       data: {
         'restrictType': restrictType,
         'categoryId': categoryId
@@ -76,7 +76,7 @@
       e.preventDefault();
       const formData = $('#categoryInfo').serializeArray();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminCategories&method=save_category',
+        url: 'ajax.php?act=ajaxAdminCittinsCategories&method=save_category',
         data: formData
       }).done(function (resultArray) {
         // update hidden field action

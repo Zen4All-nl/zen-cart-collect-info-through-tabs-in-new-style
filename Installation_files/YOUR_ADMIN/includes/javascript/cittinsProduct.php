@@ -46,7 +46,7 @@
       if (productsImage.length > 0 || productsImageManual.length > 0) {
         $.ajax({
           type: 'POST',
-          url: 'ajax.php?act=ajaxAdminProduct&method=setImage',
+          url: 'ajax.php?act=ajaxAdminCittinsProduct&method=setImage',
           processData: false,
           contentType: false,
           async: false,
@@ -75,7 +75,7 @@
   function getAdditionalImages(productImage) {
     $('#additionalImagesUploaderImages').html('');
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminProduct&method=getAdditionalImages',
+      url: 'ajax.php?act=ajaxAdminCittinsProduct&method=getAdditionalImages',
       data: {
         'productId': productId,
         'productImage': productImage
@@ -111,7 +111,7 @@
   }
   function deleteMainImage() {
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminProduct&method=deleteMainImage',
+      url: 'ajax.php?act=ajaxAdminCittinsProduct&method=deleteMainImage',
       data: {
         'productId': productId
       }
@@ -131,7 +131,7 @@
       e.preventDefault();
       const formData = $('#productInfo').serializeArray();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminProduct&method=saveProduct',
+        url: 'ajax.php?act=ajaxAdminCittinsProduct&method=saveProduct',
         data: formData
       }).done(function () {
         getMessageStack();

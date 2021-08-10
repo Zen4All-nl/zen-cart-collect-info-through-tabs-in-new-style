@@ -12,7 +12,7 @@
   function setProductFlag(productId, flag) {
 
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=setProductFlag',
+      url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=setProductFlag',
       data: {
         'productId': productId,
         'flag': flag
@@ -27,7 +27,7 @@
   }
   function setCategoryFlag(categoryId, cPath, flag) {
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=setCategoryFlag',
+      url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=setCategoryFlag',
       data: {
         'categoryId': categoryId,
         'flag': flag,
@@ -110,7 +110,7 @@
       e.preventDefault();
       const formData = $('#setCategoryFlagForm').serializeArray();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=setCategoryFlagConfirm',
+        url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=setCategoryFlagConfirm',
         data: formData
       }).done(function (resultArray) {
         $('#setCategoryFlagModal').modal('hide');
@@ -130,7 +130,7 @@
     $('#cPath').val(cPath);
     $('#deleteCategoryId').val(categoryId);
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=deleteCategory',
+      url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=deleteCategory',
       data: {
         'categoryId': categoryId
       }
@@ -159,7 +159,7 @@
       e.preventDefault();
       const formData = $('#deleteCategoryForm').serializeArray();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=deleteCategoryConfirm',
+        url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=deleteCategoryConfirm',
         data: formData
       }).done(function (resultArray) {
         $('#deleteCategoryModal').modal('hide');
@@ -177,7 +177,7 @@
     $('#moveCategoryId').val(categoryId);
     $('#moveCategoryForm select').val(categoryId);
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=moveCategory',
+      url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=moveCategory',
       data: {
         'categoryId': categoryId
       }
@@ -193,7 +193,7 @@
       e.preventDefault();
       const formData = $('#moveCategoryForm').serializeArray();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=moveCategoryConfirm',
+        url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=moveCategoryConfirm',
         data: formData
       }).done(function (resultArray) {
         console.log(resultArray);
@@ -209,7 +209,7 @@
     $('#deleteProductCategoryId').val(<?php echo $current_category_id; ?>);
     $('#deleteProductType').val(product_type);
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=deleteProduct',
+      url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=deleteProduct',
       data: {
         'productId': productId,
         'currentCategoryId': <?php echo $current_category_id; ?>
@@ -234,7 +234,7 @@
       e.preventDefault();
       const formData = $('#deleteProductForm').serializeArray();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=deleteProductConfirm',
+        url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=deleteProductConfirm',
         data: formData
       }).done(function (resultArray) {
         $('#deleteProductModal').modal('hide');
@@ -245,7 +245,7 @@
   function moveProduct(productId) {
     $('#moveProductId').val(productId);
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=moveProduct',
+      url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=moveProduct',
       data: {
         'productId': productId
       }
@@ -262,7 +262,7 @@
       e.preventDefault();
       const formData = $('#moveProductForm').serializeArray();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=moveProductConfirm',
+        url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=moveProductConfirm',
         data: formData
       }).done(function (resultArray) {
         $('#moveProductModal').modal('hide');
@@ -275,7 +275,7 @@
     $('#copyProductId').val(productId);
     $('#copyProductType').val(productType);
     zcJS.ajax({
-      url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=copyProduct',
+      url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=copyProduct',
       data: {
         'productId': productId
       }
@@ -316,7 +316,7 @@
       e.preventDefault();
       const formData = $('#copyProductForm').serializeArray();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=copyProductConfirm',
+        url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=copyProductConfirm',
         data: formData
       }).done(function () {
         $('#copyProductModal').modal('hide');
@@ -330,7 +330,7 @@
       const formData = $('#multiSelectListingActionsForm').serializeArray();
       console.log(formData);
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=multiSelectAction',
+        url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=multiSelectAction',
         data: formData
       }).done(function (resultArray) {
         console.log(resultArray);
@@ -373,7 +373,7 @@
       const column = 'table .' + $(this).attr('name');
       $(column).toggle();
       zcJS.ajax({
-        url: 'ajax.php?act=ajaxAdminCategoriesProductListing&method=setSessionColumnValue',
+        url: 'ajax.php?act=ajaxAdminCittinsCategoriesProductListing&method=setSessionColumnValue',
         data: {
           'column': $(this).attr('name')
         }
