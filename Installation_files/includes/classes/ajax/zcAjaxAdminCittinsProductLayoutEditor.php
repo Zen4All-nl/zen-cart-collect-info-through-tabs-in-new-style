@@ -3,11 +3,11 @@
 /**
  * 
  */
-class zcAjaxAdminProductLayoutEditor extends base {
+class zcAjaxAdminCittinsProductLayoutEditor extends base {
 
   /**
    * Add product type
-   * @global string $db
+   * @global object $db
    * @return array
    */
   public function addProducType()
@@ -58,7 +58,7 @@ class zcAjaxAdminProductLayoutEditor extends base {
 
   /**
    * Remove product type
-   * @global string $db
+   * @global object $db
    * @return array
    */
   public function removeProductType()
@@ -95,7 +95,7 @@ class zcAjaxAdminProductLayoutEditor extends base {
 
   /**
    * Get the information of a tab, why it can not be deleted
-   * @global string $db
+   * @global object $db
    * @return array
    */
   public function getTabInfo()
@@ -137,8 +137,29 @@ class zcAjaxAdminProductLayoutEditor extends base {
   }
 
   /**
+   * 
+   */
+  public function editTabInfo()
+  {
+    global $db;
+    $data = new objectInfo($_POST);
+    $getTabNameQuery = "SELECT *
+                        FROM " . TABLE_PRODUCT_TAB_NAMES . "
+                        WHERE id = " . (int)$data->tabId;
+    $tabNameQueryResult = $db->Execute($getTabNameQuery);
+    foreach ($tabNameQueryResult as $tabNameResult) {
+      $tabName[] = [
+        'language_id' => $tabNameResult['language_id'],
+        'tab_name' => $tabNameResult['tab_name'],
+      ];
+    }
+    return ([
+      'tabName' => $tabName
+    ]);
+  }
+  /**
    *
-   * @global string $db
+   * @global object $db
    * @return array
    */
   public function updateTabSortOrder()
@@ -158,7 +179,7 @@ class zcAjaxAdminProductLayoutEditor extends base {
 
   /**
    * Returns the message stack
-   * @global type $messageStack
+   * @global object $messageStack
    * @return array
    */
   public function messageStack()

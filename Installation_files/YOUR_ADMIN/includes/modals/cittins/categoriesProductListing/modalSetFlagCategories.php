@@ -24,7 +24,7 @@
           <?php echo zen_draw_hidden_field('cPath', '', 'id="hiddenCPath"'); ?>
           <div class="form-group">
             <div class="col-sm-12">
-              <p><?php echo TEXT_CATEGORIES_STATUS_INTRO; ?> <strong><?php ($cInfo->categories_status == '1' ? TEXT_CATEGORIES_STATUS_OFF : TEXT_CATEGORIES_STATUS_ON); ?></strong></p>
+              <p><?php echo TEXT_CATEGORIES_STATUS_INTRO; ?> <strong><?php ($category['categories_status'] == '1' ? TEXT_CATEGORIES_STATUS_OFF : TEXT_CATEGORIES_STATUS_ON); ?></strong></p>
             </div>
           </div>
           <div class="form-group">

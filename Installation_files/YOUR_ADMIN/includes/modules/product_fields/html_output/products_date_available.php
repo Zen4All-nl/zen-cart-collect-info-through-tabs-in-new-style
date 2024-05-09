@@ -12,5 +12,5 @@
 <script>
   $(function () {
     $('input[name="products_date_available"]').datepicker();
-  })
+  });
 </script>

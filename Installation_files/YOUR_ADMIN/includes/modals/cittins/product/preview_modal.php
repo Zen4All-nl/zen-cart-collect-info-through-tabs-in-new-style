@@ -6,7 +6,6 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version GIT: $Id: Author: Ian Wilson  Tue Aug 7 15:42:16 2012 +0100 Modified in v1.5.1 $
  */
-include DIR_FS_CATALOG_LANGUAGES . 'english/product_info.php';
 ?>
 
 <div id="previewmodal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

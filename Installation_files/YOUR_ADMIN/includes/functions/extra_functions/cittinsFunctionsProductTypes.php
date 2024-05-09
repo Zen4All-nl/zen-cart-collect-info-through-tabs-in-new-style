@@ -6,6 +6,10 @@
  * and open the template in the editor.
  */
 
+if (!defined('IS_ADMIN_FLAG')) {
+  die('Illegal Access');
+}
+
 /**
  * Returns all the fields that are assigned to a specific tab for a product type
  * @global object $db
@@ -13,7 +17,7 @@
  * @param int $tabId <p>The tab id</p>
  * @return aray <p>Returns all fields that belong to a specific tab</p>
  */
-function getFieldsInTab(int $productType, int $tabId)
+function getFieldsInTab(int $productType, int $tabId): array
 {
   global $db;
 
@@ -64,7 +68,7 @@ function getAvailableFields(array $array1, array $array2)
  * @param int $id <p>The field id</p>
  * @return int <p>Returns the value of the core field (1 or 0)</p>
  */
-function fieldIsCore(int $id)
+function fieldIsCore(int $id): int
 {
   global $db;
   $fieldIsCoreQuery = "SELECT core
@@ -72,15 +76,15 @@ function fieldIsCore(int $id)
                        WHERE id = " . (int)$id;
   $fieldIsCore = $db->Execute($fieldIsCoreQuery);
 
-  return $fieldIsCore->fields['core'];
+  return (int)$fieldIsCore->fields['core'];
 }
 
 /**
  * 
- * @global array $db
+ * @global object $db
  * @return array Returns all defined tabs
  */
-function getAllTabs()
+function getAllTabs(): array
 {
   global $db;
   $availableTabsQuery = "SELECT pt.*, ptn.tab_name
@@ -109,7 +113,7 @@ function getAllTabs()
  * @param int $productType
  * @return array <p>returns all available tabs for a product type</p>
  */
-function getTabsInType(int $productType = 1)
+function getTabsInType(int $productType = 1): array
 {
 
   $availableTabs = getAllTabs();
@@ -127,10 +131,10 @@ function getTabsInType(int $productType = 1)
 
 /**
  * 
- * @global array $db
+ * @global object $db
  * @return array <p>The available product types</p>
  */
-function getProductTypes()
+function getProductTypes(): array
 {
   global $db;
   $productTypesQuery = "SELECT * FROM " . TABLE_PRODUCT_TYPES;
@@ -152,7 +156,7 @@ function getProductTypes()
  * @param int $languageId <p>Language ID</p>
  * @return string <p>The tab name</p>
  */
-function getTabName(int $id, int $languageId)
+function getTabName(int $id, int $languageId): string
 {
   global $db;
   $tabNameQuery = "SELECT tab_name

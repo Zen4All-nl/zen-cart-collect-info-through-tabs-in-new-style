@@ -3,7 +3,7 @@
 /**
  * 
  */
-class zcAjaxAdminProduct extends base {
+class zcAjaxAdminCittinsProduct extends base {
 
   /**
    * 

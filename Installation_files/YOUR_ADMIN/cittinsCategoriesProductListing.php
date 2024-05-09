@@ -24,9 +24,7 @@ $currentPage = (isset($_GET['page']) && !empty($_GET['page']) ? (int)$_GET['page
 if (isset($_GET['product_type'])) {
   $_GET['product_type'] = (int)$_GET['product_type'];
 }
-if (isset($_GET['cID'])) {
-  $_GET['cID'] = (int)$_GET['cID'];
-}
+$cID = (isset($_GET['cID'])? (int)$_GET['cID'] : 0);
 
 $cPathBackRaw = '';
 if (count($cPath_array) > 0) {
@@ -102,12 +100,12 @@ if (is_dir(DIR_FS_CATALOG_IMAGES)) {
 } else {
   $messageStack->add(ERROR_CATALOG_IMAGE_DIRECTORY_DOES_NOT_EXIST, 'error');
 }
-$selectActions = array(
+$selectActions = [
   ['id' => '', 'text' => PLEASE_SELECT],
   ['id' => 'move', 'text' => ACTION_MOVE],
   ['id' => 'delete', 'text' => ACTION_DELETE],
   ['id' => 'copy', 'text' => ACTION_COPY]
-);
+];
 
 // check for which buttons to show for categories and products
 $check_categories = zen_has_category_subcategories($current_category_id);
@@ -179,7 +177,7 @@ if ($check_products > 0) {
             </div>
             <?php
             echo zen_hide_session_id();
-            echo (!empty($cPath) ? zen_draw_hidden_field('cID', $cPath) : '');
+            echo (!empty($cID) ? zen_draw_hidden_field('cID', $cID) : '');
             echo (!empty($cPath) ? zen_draw_hidden_field('cPath', $cPath) : '');
             echo (!empty($productId) ? zen_draw_hidden_field('pID', $productId) : '');
             echo ($currentPage != 0 ? zen_draw_hidden_field('page', $currentPage) : '');
@@ -302,7 +300,7 @@ if ($check_products > 0) {
               </thead>
               <tbody>
                 <tr>
-                  <td colspan="2"><a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING); ?>" class="btn btn-default btn-xs" role="button"<?php echo ($_GET['cID'] == '0' ? ' disabled' : ''); ?>><i class="fa fa-reply-all fa-flip-vertical" aria-hidden="true" title="Up to top level"></i></a> <a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING, $cPath_back . 'cID=' . $current_category_id); ?>" class="btn btn-default btn-xs" role="button"<?php echo ($_GET['cID'] == '0' ? ' disabled' : ''); ?>><i class="fa fa-reply fa-flip-vertical" aria-hidden="true" title="Up one level"></i></a></td>
+                  <td colspan="2"><a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING); ?>" class="btn btn-default btn-xs" role="button"<?php echo ($cID === 0 ? ' disabled' : ''); ?>><i class="fa fa-reply-all fa-flip-vertical" aria-hidden="true" title="Up to top level"></i></a> <a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING, $cPath_back . 'cID=' . $current_category_id); ?>" class="btn btn-default btn-xs" role="button"<?php echo ($cID === 0 ? ' disabled' : ''); ?>><i class="fa fa-reply fa-flip-vertical" aria-hidden="true" title="Up one level"></i></a></td>
                   <td class="ColumnName">&nbsp;</td>
                   <td class="ColumnImage">&nbsp;</td>
                   <td class="ColumnModel text-center hidden-sm hidden-xs">&nbsp;</td>
@@ -362,14 +360,14 @@ if ($check_products > 0) {
                     <td><?php echo zen_draw_checkbox_field('selected_categories[]', $category['categories_id']); ?></td>
                     <td class="text-right"><?php echo $category['categories_id']; ?></td>
                     <td class="ColumnName">
-                      <a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING, zen_get_path($category['categories_id'])); ?>" class="folder">
+                      <a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES_PRODUCT_LISTING, zen_get_path($category['categories_id']) . '&' . 'cID=' . $cID); ?>" class="folder">
                         <i class="fa fa-lg fa-folder"></i>&nbsp;<strong><?php echo $category['categories_name']; ?></strong></a>
                     </td>
                     <td class="ColumnImage">
                       <?php echo zen_info_image($category['categories_image'], $category['categories_name'], HEADING_IMAGE_WIDTH, HEADING_IMAGE_HEIGHT); ?>
                     </td>
                     <td class="ColumnModel text-center hidden-sm hidden-xs">&nbsp;</td>
-                    <td class="ColumnPrice text-right hidden-sm hidden-xs"><?php echo ($search_result || $categories->EOF ? zen_get_discount_calc('', $category['categories_id'], true): ''); ?></td>
+                    <td class="ColumnPrice text-right hidden-sm hidden-xs"><?php echo ($search_result || $categories->EOF ? zen_get_discount_calc('', $category['categories_id'], true) : ''); ?></td>
                     <?php if ($search_result || SHOW_COUNTS_ADMIN == 'true') { ?>
                       <td class="ColumnQuantity text-right hidden-sm hidden-xs">
                         <?php
@@ -405,7 +403,7 @@ if ($check_products > 0) {
                           <i class="fa fa-arrows fa-lg" aria-hidden="true"></i>
                         </button>
                         <?php if (zen_get_category_metatag_fields($category['categories_id'], (int)$_SESSION['languages_id'], 'metatags_keywords') || zen_get_category_metatag_fields($category['categories_id'], (int)$_SESSION['languages_id'], 'metatags_description')) { ?>
-                          <a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES, (!empty($cPath) ? 'cPath=' . $cPath . '&' : '') . 'cID=' . $category['categories_id'] . '&action=edit_category_meta_tags' . '&activeTab=categoryTabs4'); ?>" title="<?php echo TEXT_LISTING_EDIT_META_TAGS; ?>" class="btn btn-sm btn-info" role="button">
+                          <a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES, (!empty($cPath) ? 'cPath=' . $cPath . '&' : '') . (!empty($cID) ? 'cID=' . $category['categories_id'] . '&' : '') . 'action=edit_category_meta_tags' . '&activeTab=categoryTabs4'); ?>" title="<?php echo TEXT_LISTING_EDIT_META_TAGS; ?>" class="btn btn-sm btn-info" role="button">
                             <i class="fa fa-asterisk fa-lg" aria-hidden="true"></i>
                           </a>
                         <?php } else { ?>
@@ -523,9 +521,9 @@ if ($check_products > 0) {
                         <i class="fa fa-square fa-lg txt-linked" title="<?php echo IMAGE_ICON_LINKED; ?>"></i>
                       <?php } ?>
                       <?php if ($product['products_status'] == '1') { ?>
-                        <i role="button" id="pFlag_<?php echo $product['products_id']; ?>" title="<?php echo IMAGE_ICON_STATUS_ON; ?>" onclick="setProductFlag('<?php echo $product['products_id']; ?>', '0')" class="fa fa-square fa-lg txt-status-on"></i>
+                        <i role="button" id="pFlag_<?php echo $product['products_id']; ?>" title="<?php echo IMAGE_ICON_STATUS_ON; ?>" onclick="setProductFlag(<?php echo $product['products_id']; ?>, 0)" class="fa fa-square fa-lg txt-status-on"></i>
                       <?php } else { ?>
-                        <i role="button" id="pFlag_<?php echo $product['products_id']; ?>" title="<?php echo IMAGE_ICON_STATUS_OFF; ?>" onclick="setProductFlag('<?php echo $product['products_id']; ?>', '1')" class="fa fa-square fa-lg txt-status-off"></i>
+                        <i role="button" id="pFlag_<?php echo $product['products_id']; ?>" title="<?php echo IMAGE_ICON_STATUS_OFF; ?>" onclick="setProductFlag(<?php echo $product['products_id']; ?>, 1)" class="fa fa-square fa-lg txt-status-off"></i>
                       <?php } ?>
                     </td>
                     <td class="ColumnSort text-right hidden-sm hidden-xs"><?php echo $product['products_sort_order']; ?></td>
@@ -567,7 +565,7 @@ if ($check_products > 0) {
                           </a>
                           <?php
                         }
-                        if (zen_get_metatags_keywords($product['products_id'], (int)$_SESSION['languages_id']) || zen_get_metatags_description($product['products_id'], (int)$_SESSION['languages_id'])) {
+                        if (zen_get_product_metatag_fields($product['products_id'], (int)$_SESSION['languages_id'], 'metatags_keywords') || zen_get_product_metatag_fields($product['products_id'], (int)$_SESSION['languages_id'], 'metatags_description')) {
                           ?>
                           <a href="<?php echo zen_href_link(FILENAME_CITTINS_PRODUCT, ($currentPage != 0 ? 'page=' . $currentPage . '&' : '') . 'product_type=' . $product['products_type'] . '&cPath=' . $cPath . '&pID=' . $product['products_id']); ?>" title="<?php echo TEXT_LISTING_EDIT_META_TAGS; ?>" class="btn btn-sm btn-info" role="button">
                             <i class="fa fa-asterisk fa-lg metatags-on" aria-hidden="true"></i>
@@ -583,17 +581,19 @@ if ($check_products > 0) {
                 <?php } ?>
               </tbody>
             </table>
-          </form>
-          <div class="row">
-            <div class="col-sm-6">
-              <?php echo zen_draw_label(WITH_SELECTED, 'action_select', 'class="col-sm-3 control-label"'); ?>
-              <div class="col-sm-9">
-                <div class="input-group"><?php echo zen_draw_pull_down_menu('action_select', $selectActions, '', 'id="action_select" class="form-control"'); ?>
-                  <div class="input-group-btn"><button type="submit" class="btn btn-primary" onclick="multiSelect();"><?php echo IMAGE_GO; ?></button></div>
+            <div class="row">
+              <div class="col-sm-6">
+                <?php echo zen_draw_label(WITH_SELECTED, 'action_select', 'class="col-sm-3 control-label"'); ?>
+                <div class="col-sm-9">
+                  <div class="input-group"><?php echo zen_draw_pull_down_menu('action_select', $selectActions, '', 'id="action_select" class="form-control"'); ?>
+                    <div class="input-group-btn"><button type="submit" class="btn btn-primary" onclick="multiSelectAction();"><?php echo IMAGE_GO; ?></button></div>
+                  </div>
                 </div>
+                <?php echo zen_draw_hidden_field('cPath', $cPath); ?>
               </div>
-              <?php echo zen_draw_hidden_field('cPath', $cPath); ?>
             </div>
+          </form>
+          <div class="row mt5">
             <div class="col-sm-6 text-right">
               <?php if (empty($searchWords) && !$zc_skip_categories) { ?>
                 <a href="<?php echo zen_href_link(FILENAME_CITTINS_CATEGORIES, 'cPath=' . $cPath . '&action=new_category'); ?>" class="btn btn-primary" role="button"><?php echo IMAGE_NEW_CATEGORY; ?></a>

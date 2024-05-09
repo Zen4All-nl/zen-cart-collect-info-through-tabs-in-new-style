@@ -1,7 +1,7 @@
 <?php
 /*
- * @copyright (c) 2008-2021, Zen4All
- * @copyright Copyright 2003-2020 Zen Cart Development Team
+ * @copyright (c) 2008-2022, Zen4All
+ * @copyright Copyright 2003-2022 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: Author: Zen4All
@@ -9,7 +9,7 @@
 require 'includes/application_top.php';
 $languages = zen_get_languages();
 $categoryId = (isset($_GET['cID']) ? (int)$_GET['cID'] : '');
-if ($categoryId != '') {
+if (!empty($categoryId)) {
   $category = $db->Execute("SELECT c.categories_id, cd.categories_name, cd.categories_description, c.categories_image,
                                    c.sort_order, c.date_added, c.last_modified
                             FROM " . TABLE_CATEGORIES . " c

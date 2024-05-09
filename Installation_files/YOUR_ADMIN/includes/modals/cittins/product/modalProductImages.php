@@ -1,16 +1,5 @@
 <?php
 /* Creates the bootstrap modal where the image will appear */
-
-list($imageWidth, $imageHeight) = getimagesize(DIR_FS_CATALOG_IMAGES . $productInfo['products_image']['value']);
-$mediumWith = (int)MEDIUM_IMAGE_WIDTH;
-if ($imageWidth > $mediumWith) {
-  $width = $mediumWith;
-} else {
-  $width = $imageWidth;
-}
-if ($height > MEDIUM_IMAGE_HEIGHT) {
-  $height = MEDIUM_IMAGE_HEIGHT;
-}
 ?>
 <!-- Product main image preview modal-->
 <div id="imagePreviewModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">

@@ -6,7 +6,7 @@
  * and open the template in the editor.
  */
 
-class zcAjaxAdminCategoriesProductListing extends base {
+class zcAjaxAdminCittinsCategoriesProductListing extends base {
 
   /**
    * Set the product status
@@ -766,11 +766,11 @@ class zcAjaxAdminCategoriesProductListing extends base {
   public function setSessionColumnValue()
   {
     $data = new objectInfo($_POST);
-    $newValue = ($_SESSION['columnVisibility'][$data->column] == 'true' ? 'false' : 'true');
-    $_SESSION['columnVisibility'][$data->column] = $newValue;
+    $newValue = ($_SESSION['cittins']['columnVisibility'][$data->column] == 'true' ? 'false' : 'true');
+    $_SESSION['cittins']['columnVisibility'][$data->column] = $newValue;
     return([
       'data' => $data,
-      'session' => $_SESSION['columnVisibility']
+      'session' => $_SESSION['cittins']['columnVisibility']
     ]);
   }
 

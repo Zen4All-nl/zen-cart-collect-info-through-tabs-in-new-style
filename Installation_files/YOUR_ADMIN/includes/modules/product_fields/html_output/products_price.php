@@ -1,7 +1,7 @@
 <script>
   let tax_rates = new Array();
 <?php
-for ($i = 0, $n = sizeof($tax_class_array); $i < $n; $i++) {
+for ($i = 0, $n = count($tax_class_array); $i < $n; $i++) {
   if ($tax_class_array[$i]['id'] > 0) {
     echo 'tax_rates["' . $tax_class_array[$i]['id'] . '"] = ' . zen_get_tax_rate_value($tax_class_array[$i]['id']) . ';' . "\n";
   }

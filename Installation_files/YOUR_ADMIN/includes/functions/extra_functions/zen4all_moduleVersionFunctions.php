@@ -6,12 +6,16 @@
  * and open the template in the editor.
  */
 
+if (!defined('IS_ADMIN_FLAG')) {
+  die('Illegal Access');
+}
+
 /**
  * 
- * @param string $repository
+ * @param string $repository <p>Repository name</p>
  * @return string <p>Latest version of a module</p>
  */
-function getLatestVersion(string $repository)
+function getLatestVersion(string $repository): string
 {
   $url = 'https://api.github.com/repos/Zen4All-nl/' . $repository . '/git/refs/tags';
   $ch = curl_init($url);
@@ -28,11 +32,11 @@ function getLatestVersion(string $repository)
 
 /**
  * 
- * @param string $repository Name of the GitHub repository
- * @param string $currentVersion The current module version
+ * @param string $repository <p>Name of the GitHub repository</p>
+ * @param string $currentVersion <p>The current module version</p>
  * @return boolean
  */
-function updatAvailable(string $repository, string $currentVersion)
+function updatAvailable(string $repository, string $currentVersion): bool
 {
 
   $latestVersion = getLatestVersion($repository, $currentVersion);

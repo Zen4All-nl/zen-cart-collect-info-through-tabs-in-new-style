@@ -21,10 +21,18 @@ Collect information through tabs in new style - Cittins
   font-size: 12px;
   line-height: 1.5;
 }
-.attributes-on {color: #000;}
-.pricemanager-on {color: #000;}
-.metatags-on {color: #000;}
-.fa-folder, .fa-folder-open {color: #deb887;}
+.attributes-on {
+  color: #000;
+}
+.pricemanager-on {
+  color: #000;
+}
+.metatags-on {
+  color: #000;
+}
+.fa-folder, .fa-folder-open {
+  color: #deb887;
+}
 .folder, .folder:hover {
   text-decoration: none;
   color: #000;
@@ -77,11 +85,11 @@ Collect information through tabs in new style - Cittins
 /* EOF Column Dropo Down */
 
 .SortOrderHeader {
-    color: #f60;
+  color: #f60;
 }
 
 .SortOrderHeaderLink {
-    color: #000;
+  color: #000;
 }
 
 .txt-status-off{

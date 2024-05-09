@@ -7,13 +7,17 @@
  * @version Cittins 2.0.0 by Zen4All
  */
 
+if (!defined('IS_ADMIN_FLAG')) {
+  die('Illegal Access');
+}
+
 /**
  * search directories for the needed files
  * @param string $dir
  * @param string $prefix
  * @return array <p>directories and files</p>
  */
-function recursiveDirList(string $dir, string $prefix = '')
+function recursiveDirList(string $dir, string $prefix = ''): array
 {
   $dir_1 = rtrim($dir, DIRECTORY_SEPARATOR);
   $result = [];
@@ -40,14 +44,14 @@ if (!function_exists('zen_html_button')) {
    * @param string $size The button size: xs, sm, lg For normal size leave empty
    * @return string The html button code
    */
-  function zen_html_button(string $type = 'button', string $text = '', string $class = 'default', string $parameters = '', string $size = '') :string
+  function zen_html_button(string $type = 'button', string $text = '', string $class = 'default', string $parameters = '', string $size = ''): string
   {
     $button = '<button type="' . zen_output_string_protected($type) . '" class="btn btn-' . zen_output_string_protected($class) . '';
-    if (zen_not_null($size)) {
+    if (!empty($size)) {
       $button .= ' btn-' . zen_output_string_protected($size);
     }
     $button .= '"';
-    if (zen_not_null($parameters)) {
+    if (!empty($parameters)) {
       $button .= ' ' . $parameters;
     }
     $button .= '>' . $text . '</button>';
@@ -71,7 +75,7 @@ if (!function_exists('zen_html_button')) {
 function dirList(string $path, string $file)
 {
   $dirs = glob($path . '*', GLOB_ONLYDIR);
-  $files = array();
+  $files = [];
 //--- search through each folder for the file
 //--- append results to $files
   foreach ($dirs as $d) {
@@ -100,7 +104,7 @@ function dirList(string $path, string $file)
 function dirListProductFields(string $directory)
 {
   // create an array to hold directory list
-  $results = array();
+  $results = [];
 
   if (is_dir($directory)) {
     // create a handler for the directory
@@ -128,20 +132,18 @@ function dirListProductFields(string $directory)
  * @param string $products_image
  * @return array
  */
-function getAdditionalImages(int $product_id, string $products_image)
+function getAdditionalImages(int $product_id, string $products_image): array
 {
-  $result['products_image'] = DIR_WS_IMAGES . $products_image;
 
   // prepare image name
   $products_image_extension = substr($products_image, strrpos($products_image, '.'));
   $products_image_base = str_replace($products_image_extension, '', $products_image);
 
-  $images_array = array();
+  $images_array = [];
 
   if (strrpos($products_image, '/')) {
     $products_image_match = substr($products_image, strrpos($products_image, '/') + 1);
-    $products_image_match = str_replace($products_image_extension, '', $products_image_match);
-    $products_image_base = $products_image_match;
+    $products_image_base = str_replace($products_image_extension, '', $products_image_match);
   }
 
   $products_image_directory = str_replace($products_image, '', substr($products_image, strrpos($products_image, '/')));
@@ -154,34 +156,43 @@ function getAdditionalImages(int $product_id, string $products_image)
   $search_directory = DIR_FS_CATALOG . $products_image_directory;
   $glob_search = $search_directory . $products_image_base . '_[0-9][0-9]' . $products_image_extension;
   $files = glob($glob_search);
-  $result['glob_search'] = $glob_search;
-  $result['image_base'] = $products_image_base;
-  $result['extension'] = $products_image_extension;
-  $result['search_dir'] = $search_directory;
-  $images_array[] = array('filename' => HTTPS_CATALOG_SERVER . DIR_WS_HTTPS_CATALOG . $products_image_directory . $products_image_base . $products_image_extension);
-  $result['files'] = $files;
+
+  $images_array[] = [
+    'filename' => HTTPS_CATALOG_SERVER . DIR_WS_HTTPS_CATALOG . $products_image_directory . $products_image_base . $products_image_extension
+  ];
+
   if (is_array($files) && !empty($files)) {
     foreach ($files as $file) {
       $image_count++;
       $image_suffix_number = str_replace($search_directory . $products_image_base . '_', '', $file);
       $image_suffix_number = str_replace($products_image_extension, '', $image_suffix_number);
-      $images_array[] = array(
+      $images_array[] = [
         //  'filepath' => str_replace(DIR_FS_CATALOG, HTTPS_CATALOG_SERVER . DIR_WS_HTTPS_CATALOG, $file),
         'filename' => str_replace(DIR_FS_CATALOG, HTTPS_CATALOG_SERVER . DIR_WS_HTTPS_CATALOG, $file),
         'count' => $image_count,
         'suffix_number' => $image_suffix_number
-      );
+      ];
     }
   }
-  $result['last_image_suffix'] = (int)$image_suffix_number;
+
   $next_image_suffix = (int)$image_suffix_number + 1;
   $text_image_suffix = str_pad($next_image_suffix, 2, '0', STR_PAD_LEFT);
   $new_img_dir = str_replace(DIR_WS_IMAGES, '', $products_image_directory);
-  $result['new_filename'] = $products_image_base . '_' . $text_image_suffix . $products_image_extension;
-  $result['destination'] = $new_img_dir;
-  $result['next_image_number'] = $image_count;
-  $result['success'] = 'Success: Found Images';
-  $result['images'] = $images_array;
+
+  $result = [
+    'glob_search' => $glob_search,
+    'image_base' => $products_image_base,
+    'extension' => $products_image_extension,
+    'search_dir' => $search_directory,
+    'files' => $files,
+    'products_image' => DIR_WS_IMAGES . $products_image,
+    'new_filename' => $products_image_base . '_' . $text_image_suffix . $products_image_extension,
+    'destination' => $new_img_dir,
+    'next_image_number' => $image_count,
+    'success' => 'Success: Found Images',
+    'images' => $images_array,
+    'last_image_suffix' => (int)$image_suffix_number
+  ];
 
   return $result;
 }
@@ -194,7 +205,7 @@ function getAdditionalImages(int $product_id, string $products_image)
  * </p>
  * @return array <p>An array which contains the retrieved field information</p>
  */
-function getFieldInformation(int $id)
+function getFieldInformation(int $id): array
 {
   global $db;
   $fieldQuery = "SELECT id, field_name, description, core
@@ -214,9 +225,9 @@ function getFieldInformation(int $id)
  * 
  * @global object $db
  * @param int $ProductTypeId
- * @return array
+ * @return object
  */
-function getProductTypeInfo(int $ProductTypeId)
+function getProductTypeInfo(int $ProductTypeId): object
 {
   global $db;
   $productTypeInfoQuery = "SELECT pt.*, COUNT(p.products_id) AS products_count

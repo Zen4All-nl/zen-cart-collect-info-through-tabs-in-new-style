@@ -1,6 +1,6 @@
 <?php
 
-class zcAjaxAdminCategories extends base {
+class zcAjaxAdminCittinsCategories extends base {
 
   public function add_type()
   {
